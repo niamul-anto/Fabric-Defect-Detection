@@ -1,0 +1,16 @@
+ViT-B/16 BENCHMARK RESULTS
+============================================================
+Model: ViT-B/16
+Device: cuda
+GPU: NVIDIA GeForce RTX 4070 Ti SUPER
+Precision_Mode: FP32
+Input_Size: 1x3x224x224
+Total_Parameters: 85801732
+Trainable_Parameters: 85801732
+Parameters_Million: 85.801732
+Model_Weight_Size_MB: 327.365
+GFLOPs_Estimate: 16.866648
+Latency_Mean_ms_per_image: 3.072625
+Latency_STD_ms: 0.007234
+Throughput_images_per_sec: 325.4546
+Peak_GPU_Memory_MB: 344.0771

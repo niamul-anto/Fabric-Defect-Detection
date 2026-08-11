@@ -1,0 +1,2 @@
+Model,Device,GPU,Precision_Mode,Input_Size,Total_Parameters,Trainable_Parameters,Parameters_Million,Model_Weight_Size_MB,GFLOPs_Estimate,Latency_Mean_ms_per_image,Latency_STD_ms,Throughput_images_per_sec,Peak_GPU_Memory_MB
+EfficientNet-B0,cuda,NVIDIA GeForce RTX 4070 Ti SUPER,FP32,1x3x224x224,4012672,4012672,4.012672,15.5912,0.400385,3.682603,0.135912,271.5471,80.5254

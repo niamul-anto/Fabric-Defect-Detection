@@ -1,0 +1,12 @@
+VGG16-BN FABRIC DEFECT CLASSIFICATION
+==================================================
+Best Epoch: 50
+Best Validation F1: 0.978453
+Test Loss: 0.800014
+Accuracy: 0.942623
+Macro Precision: 0.933581
+Macro Recall: 0.950590
+Macro F1-score: 0.938692
+Weighted Precision: 0.950603
+Weighted Recall: 0.942623
+Weighted F1-score: 0.943954

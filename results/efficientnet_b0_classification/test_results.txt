@@ -1,0 +1,12 @@
+EFFICIENTNET-B0 FABRIC DEFECT CLASSIFICATION
+=======================================================
+Best Epoch: 52
+Best Validation F1: 0.983532
+Test Loss: 0.649631
+Accuracy: 0.926230
+Precision: 0.919061
+Recall: 0.933650
+F1-score: 0.922246
+Weighted Precision: 0.936146
+Weighted Recall: 0.926230
+Weighted F1-score: 0.927978

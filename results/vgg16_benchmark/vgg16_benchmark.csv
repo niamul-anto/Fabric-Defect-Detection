@@ -1,0 +1,2 @@
+Model,Device,GPU,Precision_Mode,Input_Size,Total_Parameters,Trainable_Parameters,Parameters_Million,Model_Weight_Size_MB,GFLOPs_Estimate,Latency_Mean_ms_per_image,Latency_STD_ms,Throughput_images_per_sec,Peak_GPU_Memory_MB
+VGG16-BN,cuda,NVIDIA GeForce RTX 4070 Ti SUPER,FP32,1x3x224x224,134285380,134285380,134.28538,512.3206,15.493305,2.345411,0.004293,426.3645,2098.2393

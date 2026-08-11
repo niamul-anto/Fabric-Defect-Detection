@@ -1,0 +1,14 @@
+FD-NET FABRIC DEFECT CLASSIFICATION
+=======================================================
+Best Epoch: 39
+Best Validation F1: 0.719944
+Total Parameters: 573,750
+Trainable Parameters: 573,750
+Test Loss: 0.973414
+Accuracy: 0.627049
+Precision: 0.622513
+Recall: 0.615485
+F1-score: 0.605410
+Weighted Precision: 0.682781
+Weighted Recall: 0.627049
+Weighted F1-score: 0.639950

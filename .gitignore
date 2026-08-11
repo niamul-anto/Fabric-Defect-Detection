@@ -1,0 +1,44 @@
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# Datasets
+classification_dataset/
+yolo_dataset/
+
+# Dataset folders
+train/
+valid/
+test/
+
+# YOLO training runs
+runs/
+
+# Model weights
+*.pt
+*.pth
+*.onnx
+*.ckpt
+*.safetensors
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS files
+.DS_Store
+Thumbs.db
