@@ -363,7 +363,7 @@ after the final publication metadata become available.
 
 ## Contact
 
-### Md Niamul Islam Khan
+### Md. Niamul Islam Khan
 
 Department of Computer Science and Engineering
 Brac University
