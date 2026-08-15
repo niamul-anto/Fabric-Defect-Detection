@@ -710,7 +710,7 @@ Future extensions may include:
 
 # Authors
 
-* **Md Niamul Islam Khan**
+* **Md. Niamul Islam Khan**
   Department of Computer Science and Engineering
   Brac University
   Email: [niamul.islam.khan@g.bracu.ac.bd](mailto:niamul.islam.khan@g.bracu.ac.bd)
