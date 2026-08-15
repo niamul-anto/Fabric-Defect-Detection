@@ -1,0 +1,53 @@
+```yaml
+cff-version: 1.2.0
+message: "If you use this repository, dataset documentation, or FD-Net V2 in your research, please cite this software and the associated research paper when available."
+
+title: "Fabric Defect Diagnosis Using Deep Learning with a Scratch-Trained Lightweight FD-Net V2"
+
+type: software
+
+authors:
+  - family-names: "Khan"
+    given-names: "Md. Niamul Islam"
+    email: "niamul.islam.khan@g.bracu.ac.bd"
+
+  - family-names: "Emon"
+    given-names: "Md Al Mamunur Rashid"
+    email: "md.al.mamunur.rashid.emon@g.bracu.ac.bd"
+
+  - family-names: "Labonno"
+    given-names: "Miskatunnisa"
+    email: "miskatunnisa.labonno@g.bracu.ac.bd"
+
+  - family-names: "Bidisha"
+    given-names: "Rubiya Tasfi"
+    email: "rubiya.tasfi.bidisha@g.bracu.ac.bd"
+
+repository-code: "https://github.com/niamul-anto/Fabric-Defect-Detection"
+
+keywords:
+  - fabric defect detection
+  - fabric defect classification
+  - deep learning
+  - computer vision
+  - object detection
+  - image classification
+  - FD-Net V2
+  - lightweight neural network
+  - PyTorch
+  - YOLOv8
+  - Faster R-CNN
+  - RetinaNet
+  - Vision Transformer
+  - EfficientNet
+
+abstract: >-
+  This repository contains the implementation, evaluation scripts, benchmarking
+  utilities, dataset-preparation tools, and experimental results for a deep
+  learning-based fabric defect diagnosis framework. The research uses a
+  self-developed and manually annotated four-class fabric defect dataset
+  containing Cut, Hole, Stain, and ThreadError. The repository includes object
+  detection experiments using YOLOv8m, RetinaNet, and Faster R-CNN, as well as
+  image classification experiments using ViT-B/16, VGG16-BN,
+  EfficientNet-B0, and the proposed scratch-trained lightweight FD-Net V2.
+```
