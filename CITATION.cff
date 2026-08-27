@@ -1,64 +1,30 @@
 cff-version: 1.2.0
-message: "If you use this repository, its code, dataset-processing pipeline, or FD-Net V2 in your research, please cite this work and the associated research paper when available."
-
+message: "If you use this software or FD-Net V2, please cite the associated research paper when publication details become available, and cite the original Roboflow Universe dataset separately."
 title: "FD-Net V2: A Scratch-Trained Lightweight Deep Learning Architecture for Fabric Defect Diagnosis"
-
 type: software
-
 authors:
-  - family-names: "Khan"
-    given-names: "Md. Niamul Islam"
-    email: "niamul.islam.khan@g.bracu.ac.bd"
-
-  - family-names: "Emon"
-    given-names: "Md Al Mamunur Rashid"
-    email: "md.al.mamunur.rashid.emon@g.bracu.ac.bd"
-
-  - family-names: "Labonno"
-    given-names: "Miskatunnisa"
-    email: "miskatunnisa.labonno@g.bracu.ac.bd"
-
-  - family-names: "Bidisha"
-    given-names: "Rubiya Tasfi"
-    email: "rubiya.tasfi.bidisha@g.bracu.ac.bd"
-
+  - given-names: "Md. Niamul Islam"
+    family-names: "Khan"
+  - given-names: "Md. Al Mamunur Rashid"
+    family-names: "Emon"
+  - given-names: "Miskatunnisa"
+    family-names: "Labonno"
+  - given-names: "Mohoshin Al"
+    family-names: "Mamun"
 repository-code: "https://github.com/niamul-anto/Fabric-Defect-Detection"
-
+url: "https://github.com/niamul-anto/Fabric-Defect-Detection"
+abstract: >-
+  Research software and experimental pipelines for FD-Net V2, a scratch-trained
+  lightweight deep learning architecture for fabric defect diagnosis. The study
+  uses the publicly available Fabric defect detection dataset hosted on Roboflow
+  Universe and evaluates object-detection and defect-focused image-classification
+  models. FD-Net V2 is trained from scratch without external pretrained features.
 keywords:
-  - fabric defect detection
-  - fabric defect classification
   - fabric defect diagnosis
+  - fabric defect detection
   - deep learning
-  - computer vision
   - object detection
   - image classification
-  - FD-Net V2
   - lightweight neural network
-  - scratch-trained neural network
-  - PyTorch
-  - YOLOv8
-  - Faster R-CNN
-  - RetinaNet
-  - Vision Transformer
-  - EfficientNet
-
-abstract: >-
-  This repository contains the implementation, dataset-processing pipeline,
-  evaluation scripts, benchmarking utilities, and experimental materials for
-  the research project "FD-Net V2: A Scratch-Trained Lightweight Deep Learning
-  Architecture for Fabric Defect Diagnosis." The study uses a publicly
-  available four-class fabric defect dataset obtained from Roboflow Universe,
-  containing Cut, Hole, Stain, and ThreadError categories. The repository
-  includes object detection experiments using YOLOv8n, YOLOv8m, RetinaNet,
-  and Faster R-CNN, as well as image classification experiments using
-  ViT-B/16, VGG16-BN, EfficientNet-B0, FD-Net, and the proposed
-  scratch-trained lightweight FD-Net V2. The repository also provides tools
-  for processing the original CSV annotations, converting bounding-box
-  annotations into YOLO format, generating defect-focused classification
-  crops, and benchmarking model computational efficiency.
-
-references:
-  - type: dataset
-    title: "Fabric Defect Detection"
-    url: "https://universe.roboflow.com/niamul-khan-anto/fabric-defect-detection-jdyz3-bvivw"
-    notes: "Publicly available dataset hosted on Roboflow Universe. Please follow the original dataset's licensing and attribution requirements."
+  - FD-Net V2
+  - computer vision

@@ -1,28 +1,42 @@
 # FD-Net V2: A Scratch-Trained Lightweight Deep Learning Architecture for Fabric Defect Diagnosis
 
-A deep learning-based framework for fabric defect detection and diagnosis using object detection and image classification. This project evaluates multiple deep learning architectures and proposes FD-Net V2, a lightweight classification architecture trained entirely from scratch without external pretrained features.
+A deep learning framework for fabric defect diagnosis using object detection and image classification. The repository evaluates several established deep learning models and contains the implementation of **FD-Net V2**, a lightweight image-classification architecture trained entirely from scratch without ImageNet or other external pretrained features.
 
 ## Dataset
 
-The dataset used in this study was obtained from the publicly available Fabric Defect Detection dataset hosted on Roboflow Universe.
+The source dataset used in this study is the publicly available **Fabric defect detection** dataset hosted on **Roboflow Universe**.
 
-Dataset Source:
-https://universe.roboflow.com/niamul-khan-anto/fabric-defect-detection-jdyz3-bvivw
+**Canonical dataset source:**  
+https://universe.roboflow.com/yolov7-vdg8u/fabric-defect-detection-jdyz3
 
-The dataset contains four fabric defect categories:
+The Roboflow Universe project contains **2,657 images** and four defect classes:
 
 1. Cut
 2. Hole
 3. Stain
 4. ThreadError
 
-The experimental dataset contains 2,657 images, 3,314 annotated defect instances, and 4 defect classes.
+The source dataset is licensed under **CC BY 4.0**. The original dataset should be cited and attributed according to the information provided on the Roboflow Universe project page.
 
-The original annotations were provided in CSV format using the following structure:
+The authors **did not independently collect or create the source dataset**. For this study, the authors performed dataset verification, annotation processing, bounding-box validation, experimental splitting, CSV-to-YOLO conversion, defect-focused crop generation, model-specific preprocessing, training, and evaluation.
 
-filename,xmin,ymin,xmax,ymax,class
+### Dataset citation
 
-The source dataset is used with appropriate attribution according to its applicable license.
+Roboflow provides the following citation information for the source dataset:
+
+```bibtex
+@misc{fabric-defect-detection-jdyz3_dataset,
+  title        = {Fabric defect detection Dataset},
+  type         = {Open Source Dataset},
+  author       = {yolov7},
+  howpublished = {\url{https://universe.roboflow.com/yolov7-vdg8u/fabric-defect-detection-jdyz3}},
+  url          = {https://universe.roboflow.com/yolov7-vdg8u/fabric-defect-detection-jdyz3},
+  journal      = {Roboflow Universe},
+  publisher    = {Roboflow},
+  year         = {2024},
+  month        = {mar}
+}
+```
 
 ## Dataset Classes
 
@@ -33,33 +47,35 @@ The source dataset is used with appropriate attribution according to its applica
 | Stain | Localized discoloration or contamination on the fabric surface. |
 | ThreadError | Thread-related structural defects such as broken, missing, displaced, or incorrectly woven threads. |
 
-## Dataset Statistics
+## Experimental Dataset Statistics
 
-### Object Detection Dataset
+### Object Detection
 
-| Split | Images | Annotation Rows |
+The experimental split used in this study contains 2,657 images and 3,314 annotated defect instances.
+
+| Split | Images | Annotation instances |
 |---|---:|---:|
 | Training | 2,000 | 2,401 |
 | Validation | 500 | 669 |
 | Test | 157 | 244 |
-| Total | 2,657 | 3,314 |
+| **Total** | **2,657** | **3,314** |
 
-### Classification Dataset
+### Image Classification
 
-Defect-focused crops were generated from the annotated bounding boxes.
+Defect-focused classification crops were generated from the annotated bounding boxes.
 
 | Split | Cut | Hole | Stain | ThreadError | Total |
 |---|---:|---:|---:|---:|---:|
 | Training | 548 | 524 | 349 | 974 | 2,395 |
 | Validation | 168 | 143 | 161 | 196 | 668 |
 | Test | 41 | 62 | 51 | 90 | 244 |
-| Total | 757 | 729 | 561 | 1,260 | 3,307 |
+| **Total** | **757** | **729** | **561** | **1,260** | **3,307** |
 
 ## Dataset Preparation
 
-The source dataset was adapted for both object-detection and image-classification experiments.
+The public source dataset was adapted for two complementary experimental tasks: object detection and defect-focused image classification.
 
-The preparation process included:
+The preparation pipeline included:
 
 1. Image and annotation organization
 2. Dataset consistency checking
@@ -69,33 +85,65 @@ The preparation process included:
 6. CSV-to-YOLO annotation conversion
 7. Defect-focused classification crop generation
 8. Model-specific preprocessing
-9. Image resizing and augmentation
+9. Image resizing and training-time augmentation
 
-The source annotations were available in CSV format rather than YOLO TXT format.
+The annotations used in the study pipeline were processed in CSV bounding-box form:
 
-The CSV annotations were converted into normalized YOLO annotations using convert_to_yolo.py.
+```text
+filename,xmin,ymin,xmax,ymax,class
+```
 
-Classification crops were generated from the bounding boxes using create_classification_dataset.py.
+CSV annotations were converted to normalized YOLO annotations using:
+
+```bash
+python convert_to_yolo.py
+```
+
+Defect-focused classification crops were generated from bounding boxes using:
+
+```bash
+python create_classification_dataset.py
+```
 
 ## Dataset Workflow
 
-Roboflow Universe Dataset
-→ Images + CSV Annotations
-→ Annotation Validation
-→ Train / Validation / Test
-→ CSV-to-YOLO Conversion
-→ Object Detection
+### Object Detection
 
-For classification:
+```text
+Public Roboflow Universe dataset
+        ↓
+Images + bounding-box annotations
+        ↓
+Annotation verification and validation
+        ↓
+Train / Validation / Test split
+        ↓
+Model-specific annotation preparation
+        ↓
+YOLOv8m / RetinaNet / Faster R-CNN
+```
 
-Original Image
-→ Bounding Box
-→ Defect Crop
-→ Class-specific Folder
-→ Classification Models
+### Image Classification
 
-## YOLO Dataset Structure
+```text
+Annotated source image
+        ↓
+Bounding box
+        ↓
+Defect-focused crop
+        ↓
+224 × 224 preprocessing
+        ↓
+Class-specific dataset
+        ↓
+ViT-B/16 / VGG16-BN / EfficientNet-B0 / FD-Net V2
+```
 
+## Dataset Directory Examples
+
+### YOLO Object-Detection Dataset
+
+```text
 yolo_dataset/
 ├── train/
 │   ├── images/
@@ -106,13 +154,11 @@ yolo_dataset/
 └── test/
     ├── images/
     └── labels/
+```
 
-Run the conversion with:
+### Classification Dataset
 
-python convert_to_yolo.py
-
-## Classification Dataset Structure
-
+```text
 classification_dataset/
 ├── train/
 │   ├── Cut/
@@ -129,22 +175,16 @@ classification_dataset/
     ├── Hole/
     ├── Stain/
     └── ThreadError/
-
-Run:
-
-python create_classification_dataset.py
+```
 
 ## Image Preprocessing
 
-Classification images are resized to 224 × 224 pixels.
+Classification crops are resized to **224 × 224** pixels. Model-specific normalization and augmentation are applied during training. Validation and test samples are evaluated without random training augmentation.
 
-Model-specific normalization and augmentation are applied during training. Validation and test samples are evaluated without random training augmentation.
-
-## Models Evaluated
+## Models Reported in the Manuscript
 
 ### Object Detection
 
-- YOLOv8n
 - YOLOv8m
 - RetinaNet
 - Faster R-CNN
@@ -154,205 +194,243 @@ Model-specific normalization and augmentation are applied during training. Valid
 - ViT-B/16
 - VGG16-BN
 - EfficientNet-B0
-- FD-Net
-- FD-Net V2
+- **FD-Net V2 (proposed; trained from scratch)**
 
-## Classification Performance
+### Additional Development Experiments
 
-| Model | Accuracy | Precision | Recall | F1-score |
+The repository may also contain scripts or outputs for **YOLOv8n** and the earlier **FD-Net** model. These were development/preliminary experiments and are **not part of the final comparative result tables reported in the manuscript**.
+
+## Independent-Test Object Detection Performance
+
+| Model | Precision (%) | Recall (%) | F1 (%) | mAP@0.5 (%) | mAP@0.5:0.95 (%) |
+|---|---:|---:|---:|---:|---:|
+| YOLOv8m | 75.78 | 50.00 | 60.25 | 64.04 | 39.06 |
+| RetinaNet | 70.18 | 65.57 | 67.80 | 71.70 | 48.45 |
+| **Faster R-CNN** | **76.28** | **85.66** | **80.70** | **82.81** | **63.91** |
+
+### Best Detection Result
+
+Under the final independent-test evaluation, **Faster R-CNN** achieved the strongest overall localization performance:
+
+- Precision: **76.28%**
+- Recall: **85.66%**
+- F1-score: **80.70%**
+- mAP@0.5: **82.81%**
+- mAP@0.5:0.95: **63.91%**
+
+These results describe performance under the evaluation protocol used in this study and should not be interpreted as a general claim that two-stage detectors are always superior.
+
+## Independent-Test Image Classification Performance
+
+The reported precision, recall, and F1 values use equal class contribution.
+
+| Model | Accuracy (%) | Precision (%) | Recall (%) | F1 (%) |
 |---|---:|---:|---:|---:|
-| EfficientNet-B0 | 92.62% | 91.91% | 93.37% | 92.22% |
-| FD-Net | 62.70% | 62.25% | 61.55% | 60.54% |
-| FD-Net V2 | 89.75% | 88.81% | 91.21% | 89.45% |
-| VGG16-BN | 94.26% | 93.36% | 95.06% | 93.87% |
-| ViT-B/16 | 95.08% | 94.28% | 95.55% | 94.84% |
+| **ViT-B/16** | **95.08** | **94.28** | **95.55** | **94.84** |
+| VGG16-BN | 94.26 | 93.36 | 95.06 | 93.87 |
+| EfficientNet-B0 | 92.62 | 91.91 | 93.37 | 92.22 |
+| FD-Net V2 | 89.75 | 88.81 | 91.21 | 89.45 |
 
-## FD-Net V2 Results
+### FD-Net V2 Classification Result
 
 FD-Net V2 achieved:
 
-- 89.75% Accuracy
-- 88.81% Precision
-- 91.21% Recall
-- 89.45% F1-score
-- 3.07M trainable parameters
+- Accuracy: **89.75%**
+- Precision: **88.81%**
+- Recall: **91.21%**
+- F1-score: **89.45%**
+- Trainable parameters: **3.07 million**
 
-FD-Net V2 was trained entirely from scratch without external pretrained features.
+FD-Net V2 was randomly initialized and trained entirely on the study dataset. Unlike the pretrained comparison models, it did not use ImageNet or another external pretrained feature extractor.
 
-Although ViT-B/16 achieved higher classification accuracy, FD-Net V2 provides a substantially more compact model with a favorable accuracy-resource trade-off.
-
-## Object Detection Performance
-
-| Model | Precision | Recall | F1-score | mAP@0.5 | mAP@0.5:0.95 |
-|---|---:|---:|---:|---:|---:|
-| YOLOv8n | 56.60% | 60.83% | — | 59.85% | 32.54% |
-| YOLOv8m | 72.39% | 60.65% | — | 64.05% | 39.10% |
-| RetinaNet | 71.70% | 58.93% | 64.69% | 71.70% | 48.45% |
-| Faster R-CNN | 82.81% | 72.50% | 77.31% | 82.81% | 63.91% |
-
-## Best Detection Result
-
-Faster R-CNN achieved:
-
-- 82.81% mAP@0.5
-- 63.91% mAP@0.5:0.95
-- 82.81% Precision
-- 72.50% Recall
-- 77.31% F1-score
-
-## YOLOv8m Per-Class Performance
-
-| Defect Class | mAP@0.5 |
-|---|---:|
-| Cut | 85.87% |
-| Hole | 69.08% |
-| Stain | 60.34% |
-| ThreadError | 40.92% |
-
-YOLOv8m achieved its highest per-class mAP@0.5 on Cut, while ThreadError was the most challenging category.
+Although ViT-B/16 achieved the highest classification accuracy, FD-Net V2 provides a substantially more compact model and is evaluated primarily in terms of its **accuracy-resource trade-off**, rather than as the highest-accuracy classifier.
 
 ## FD-Net V2 Computational Benchmark
 
-The classification models were benchmarked under a common inference configuration:
+The four manuscript-reported classification models were benchmarked using a common inference configuration:
 
-- NVIDIA GeForce RTX 4070 Ti SUPER
-- Batch size: 1
-- FP32 precision
+- GPU: NVIDIA GeForce RTX 4070 Ti SUPER
+- Inference batch size: 1 (benchmarking only; not the training batch size)
+- Inference precision: FP32
 - Input size: 224 × 224
-- CUDA synchronization during timing
+- CUDA synchronization around timing events
 - 100 warm-up runs
 - 5 repetitions of 200 forward passes
 
 | Model | Params (M) ↓ | Size (MB) ↓ | Est. GFLOPs ↓ | Peak GPU (MB) ↓ | Latency (ms/image) ↓ | Throughput (images/s) ↑ |
 |---|---:|---:|---:|---:|---:|---:|
 | ViT-B/16 | 85.80 | 327.37 | 16.87 | 344.08 | 3.073 | 325.45 |
-| VGG16-BN | 134.29 | 512.32 | 15.49 | 2098.24 | 2.345 | 426.36 |
-| EfficientNet-B0 | 4.01 | 15.59 | 0.400 | 80.53 | 3.683 | 271.55 |
-| FD-Net V2 | 3.07 | 11.88 | 0.899 | 63.38 | 3.011 | 332.09 |
+| VGG16-BN | 134.29 | 512.32 | 15.49 | 2098.24 | **2.345** | **426.36** |
+| EfficientNet-B0 | 4.01 | 15.59 | **0.400** | 80.53 | 3.683 | 271.55 |
+| **FD-Net V2** | **3.07** | **11.88** | 0.899 | **63.38** | 3.011 | 332.09 |
 
-## FD-Net V2 Efficiency Highlights
+### Efficiency Interpretation
 
-- Lowest parameter count: 3.07M
-- Smallest model footprint: 11.88 MB
-- Lowest peak GPU memory: 63.38 MB
-- Latency: 3.011 ms/image
-- Throughput: 332.09 images/s
+FD-Net V2 has:
 
-FD-Net V2 therefore provides a favorable balance between classification performance and computational resource requirements.
+- The lowest parameter count: **3.07M**
+- The smallest serialized model footprint: **11.88 MB**
+- The lowest measured peak GPU memory: **63.38 MB**
+- FP32 batch-1 latency: **3.011 ms/image**
+- Throughput: **332.09 images/s**
+
+EfficientNet-B0 has the lowest estimated GFLOPs, while VGG16-BN has the lowest measured GPU latency in the stated benchmark. Therefore, FD-Net V2 is **not claimed to be the best model on every efficiency metric**. Its principal advantages are compact parameter count, small storage requirement, low measured GPU memory use, and competitive classification performance without external pretraining.
 
 ## FD-Net V2 Architecture
 
-FD-Net V2 is the proposed lightweight architecture developed specifically for fabric-defect classification.
-
-The architecture incorporates:
+FD-Net V2 is a lightweight classifier developed for fabric-defect classification. Its design combines:
 
 - Inverted residual learning
 - Depthwise convolution
+- Residual shortcuts
 - Selective channel-spatial attention
-- Residual connections
-- Global pooling
+- Global average pooling
+- A compact final classifier
 
-Unlike the pretrained comparison models, FD-Net V2 is trained entirely from scratch.
+The final architecture contains approximately **3.07 million trainable parameters** and is trained entirely from scratch.
 
-## Training and Evaluation
+## Training and Independent Evaluation
 
-Training, validation, and testing are kept separate.
+Training, validation, and testing are kept separate:
 
 - Training data are used for parameter optimization.
 - Validation data are used for learning-rate adjustment, early stopping, and checkpoint selection.
 - The independent test set is used only after model selection.
-
-Classification checkpoints are selected using validation F1-score.
+- Classification checkpoints are selected by validation F1-score.
 
 FD-Net V2 uses AdamW with:
 
-- Initial learning rate: 3 × 10^-4
-- Weight decay: 1 × 10^-4
-- Scheduler: Cosine annealing
-- Early stopping patience: 20 epochs
+- Initial learning rate: **3 × 10^-4**
+- Weight decay: **1 × 10^-4**
+- Scheduler: cosine annealing
+- Early-stopping patience: **20 epochs**
+
+Where CUDA mixed precision is used during training, the final computational benchmark values reported above are measured in FP32 for a consistent comparison.
 
 ## Training Scripts
 
-YOLOv8n:
-python train_yolov8.py
+### Main manuscript experiments
 
 YOLOv8m:
+
+```bash
 python train_yolov8m.py
+```
 
 RetinaNet:
+
+```bash
 python train_retinanet.py
+```
 
 Faster R-CNN:
+
+```bash
 python train_fasterrcnn.py
+```
 
 VGG16-BN:
+
+```bash
 python train_vgg16_classification.py
+```
 
 EfficientNet-B0:
+
+```bash
 python train_efficientnet_b0_final.py
+```
 
 Vision Transformer:
-python train_vit_b16_final.py
 
-FD-Net:
-python train_fdnet_final.py
+```bash
+python train_vit_b16_final.py
+```
 
 FD-Net V2:
-python train_fdnet_v2.py
 
-## Evaluation Scripts
+```bash
+python train_fdnet_v2.py
+```
+
+### Additional development scripts
+
+If retained in the repository, scripts for YOLOv8n and the earlier FD-Net model should be treated as development/preliminary experiments rather than part of the final manuscript comparison.
+
+## Evaluation and Benchmark Scripts
 
 Detection:
 
+```bash
 python evaluate_yolov8m.py
 python evaluate_retinanet.py
 python evaluate_fasterrcnn.py
+```
 
 YOLOv8m threshold analysis:
 
+```bash
 python evaluate_yolov8m_thresholds.py
+```
 
-Classification benchmarks:
+Classification/computational benchmarks:
 
+```bash
 python benchmark_efficientnet_b0.py
 python benchmark_vgg16_bn.py
 python benchmark_vit_b16.py
 python benchmark_fdnet_v2.py
+```
+
+## Reproducibility
+
+Install the project dependencies using:
+
+```bash
+pip install -r requirements.txt
+```
+
+For a publication/release snapshot, an exact environment lock file is recommended. Generate it from the environment actually used for the reported experiments:
+
+```bash
+pip freeze > requirements-lock.txt
+```
+
+Do **not** replace the lock file with guessed package versions. The lock file should reflect the actual experimental environment.
+
+Random seeds should be documented in the relevant training scripts. Exact numerical reproducibility across different CUDA, cuDNN, PyTorch, driver, and hardware versions is not guaranteed unless deterministic execution is explicitly configured.
 
 ## Research Contributions
 
-The main contributions of this work are:
+The main contributions reported in the manuscript are:
 
-1. Proposal of FD-Net V2, a lightweight scratch-trained deep learning architecture for fabric defect diagnosis.
-2. Systematic evaluation of multiple deep learning architectures for fabric-defect detection and classification.
-3. A CSV-based bounding-box processing pipeline.
-4. A custom CSV-to-YOLO annotation conversion pipeline.
-5. An automated bounding-box-based classification crop generation pipeline.
-6. Comparative evaluation of YOLOv8n, YOLOv8m, RetinaNet, and Faster R-CNN for defect localization.
-7. Comparative evaluation of ViT-B/16, VGG16-BN, EfficientNet-B0, FD-Net, and FD-Net V2 for defect classification.
-8. Computational benchmarking based on parameters, model size, GFLOPs, latency, throughput, and peak GPU memory.
-9. Industrial review of representative defect categories and annotations.
+1. Proposal of **FD-Net V2**, a lightweight scratch-trained architecture for fabric-defect classification.
+2. A unified study of complementary fabric-defect localization and classification tasks using a common four-class experimental setting.
+3. Comparative evaluation of **YOLOv8m, RetinaNet, and Faster R-CNN** for defect localization.
+4. Comparative evaluation of **ViT-B/16, VGG16-BN, EfficientNet-B0, and FD-Net V2** for defect-focused classification.
+5. Dataset-processing workflows for bounding-box verification, CSV-to-YOLO conversion, and defect-focused crop generation.
+6. Computational benchmarking of the manuscript-reported classifiers using parameter count, model size, estimated GFLOPs, FP32 latency, throughput, and peak GPU memory.
+7. Industrial review of representative defect samples, categories, labels, and annotations.
 
 ## Industrial Review
 
-Representative dataset samples, defect categories, labels, and annotations were reviewed from an industrial garment-manufacturing perspective by professionals from:
+Representative dataset samples, defect categories, class labels, and annotations were reviewed from an industrial garment-manufacturing perspective by professionals from:
 
-JOYTEX SOURCING LTD., Dhaka, Bangladesh
+**JOYTEX SOURCING LTD., Dhaka, Bangladesh**
 
-The review assessed the industrial relevance of representative fabric-defect categories and annotations.
-
-JOYTEX SOURCING LTD. served as an industrial review source and did not create or provide the dataset used in the experiments.
+The review was used to assess the industrial relevance of representative defect categories and annotations. **JOYTEX SOURCING LTD. did not create, own, or provide the public source dataset used in the experiments.**
 
 ## Limitations
 
-The current study has several limitations:
+The present study has several limitations:
 
 - Only four defect categories are considered.
-- The dataset does not represent every possible fabric type, weave structure, color, defect severity, or production environment.
+- The source dataset does not represent every possible fabric type, weave structure, color, defect severity, or production environment.
 - External cross-factory validation has not yet been performed.
 - The experiments are based primarily on static images.
 - Continuous production-line video data are not included.
-- Additional defect categories may require further model adaptation.
+- Classification is performed on defect-focused crops rather than as a fully integrated end-to-end production pipeline.
+- Benchmarking was performed on an NVIDIA GeForce RTX 4070 Ti SUPER; power consumption, energy use, and embedded/edge-device performance were not measured.
 - Real-world deployment may introduce changes in illumination, camera position, fabric texture, and background conditions.
 
 ## Future Work
@@ -361,77 +439,78 @@ Future work may investigate:
 
 - Larger and more diverse fabric-defect datasets
 - Additional defect categories
-- Multi-factory validation
+- Cross-dataset and multi-factory validation
+- Multiple random-seed experiments
 - Different fabric types and textures
-- Different camera systems
-- Variable illumination conditions
-- Real-time production-line inspection
-- Video-based defect detection
+- Variable illumination and camera conditions
+- Defect segmentation
+- Video-based production-line inspection
 - Edge-device deployment
-- Model compression and quantization
-- External dataset validation
+- Quantization, pruning, and knowledge distillation
+- Power and energy benchmarking on embedded hardware
 
-## Dataset Availability
+## Data Availability
 
-The dataset used in this project was obtained from the publicly available Fabric Defect Detection dataset hosted on Roboflow Universe.
+The source dataset is publicly available from Roboflow Universe:
 
-Source:
-https://universe.roboflow.com/niamul-khan-anto/fabric-defect-detection-jdyz3-bvivw
+https://universe.roboflow.com/yolov7-vdg8u/fabric-defect-detection-jdyz3
 
-This repository provides the processing and experimental pipelines used to adapt the source dataset, including:
+The source dataset is subject to its original **CC BY 4.0** license and attribution requirements.
 
-- CSV annotation processing
-- Bounding-box validation
-- CSV-to-YOLO conversion
-- Classification crop generation
-- Model-specific preprocessing
+This repository contains the processing and experimental code used for the study. Source or derived dataset material should be redistributed only in accordance with the original dataset license and applicable terms.
 
-Any redistribution or reuse of source or derived dataset material must comply with the applicable license and attribution requirements of the original dataset.
+## Code Availability
+
+The code used for data preparation, model training, evaluation, and computational benchmarking, including the implementation of FD-Net V2, is available in this repository:
+
+https://github.com/niamul-anto/Fabric-Defect-Detection
+
+For publication-quality reproducibility, releases should identify the exact commit/tag corresponding to the manuscript version.
 
 ## Citation
 
-If you use this repository, FD-Net V2, the experimental pipeline, or the reported results in academic work, please cite the associated research paper once the final publication information becomes available.
+If you use FD-Net V2, this repository, the experimental pipeline, or the reported results in academic work, please cite the associated research paper once final publication details are available.
 
-Repository citation metadata is provided through:
+Repository citation metadata is provided in:
 
+```text
 CITATION.cff
+```
 
-The original dataset should also be appropriately attributed to its source on Roboflow Universe.
+The **original Roboflow Universe dataset must also be cited separately**.
 
 ## Acknowledgments
 
-We acknowledge the original creators and contributors of the Fabric Defect Detection dataset hosted on Roboflow Universe.
+The authors acknowledge the creators and contributors of the public **Fabric defect detection** dataset hosted on Roboflow Universe.
 
-We also acknowledge JOYTEX SOURCING LTD., Dhaka, Bangladesh, for their industrial review of representative fabric-defect samples, categories, labels, and annotations.
+The authors also acknowledge **JOYTEX SOURCING LTD., Dhaka, Bangladesh** for industrial review of representative fabric-defect samples, categories, labels, and annotations.
+
+JOYTEX SOURCING LTD. was not the source of the public dataset.
 
 ## License
 
-The source dataset is subject to its original licensing and attribution requirements.
+The public source dataset is licensed separately under **CC BY 4.0** by its source provider.
 
-The code and research materials developed in this repository are distributed according to the license specified in:
-
-LICENSE
-
-Users must comply with the applicable license and attribution requirements when using or redistributing source or derived dataset material.
+The repository code and author-created research materials are distributed according to the license specified in the repository's `LICENSE` file. The dataset license and the code license are separate and should not be conflated.
 
 ## Contact
 
-Md. Niamul Islam Khan
-Department of Computer Science and Engineering
-Brac University
+**Md. Niamul Islam Khan**  
+Department of Computer Science and Engineering  
+BRAC University  
 Dhaka, Bangladesh
 
-Md. Al Mamunur Rashid Emon
-Department of Computer Science and Engineering
-Brac University
+**Md. Al Mamunur Rashid Emon**  
+Department of Computer Science and Engineering  
+BRAC University  
 Dhaka, Bangladesh
 
-Miskatunnisa Labonno
-Department of Computer Science and Engineering
-Brac University
+**Miskatunnisa Labonno**  
+Department of Computer Science and Engineering  
+BRAC University  
 Dhaka, Bangladesh
 
-Rubiya Tasfi Bidisha
-Department of Computer Science and Engineering
-Brac University
+**Mohoshin Al Mamun**  
+Department of Computer Science and Engineering  
+BRAC University  
 Dhaka, Bangladesh
