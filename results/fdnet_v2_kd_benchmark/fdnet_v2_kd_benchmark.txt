@@ -1,0 +1,24 @@
+FD-NET V2-KD BENCHMARK RESULTS
+============================================================
+NOTE: These measurements benchmark ONLY the distilled FD-Net V2 student. The ViT-B/16 teacher is not loaded during inference.
+
+Model: FD-Net V2-KD
+KD_Temperature: 4.0
+KD_Alpha_CE: 0.7
+Best_Validation_Macro_F1: 0.98039
+Best_Epoch: 95
+Device: cuda
+GPU: NVIDIA GeForce RTX 4070 Ti SUPER
+Precision_Mode: FP32
+Inference_Batch_Size: 1
+Input_Size: 1x3x224x224
+Teacher_Used_At_Inference: No
+Total_Parameters: 3068448
+Trainable_Parameters: 3068448
+Parameters_Million: 3.068448
+Model_Weight_Size_MB: 11.8762
+GFLOPs_Estimate: 0.898927
+Latency_Mean_ms_per_image: 2.496842
+Latency_STD_ms: 0.087023
+Throughput_images_per_sec: 400.506
+Peak_GPU_Memory_MB: 27.4312

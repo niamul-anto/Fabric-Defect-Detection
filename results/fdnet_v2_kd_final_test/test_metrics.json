@@ -1,0 +1,10 @@
+{
+  "test_loss": 0.30800206690538123,
+  "accuracy": 0.9221311475409836,
+  "precision_macro": 0.9125436285625361,
+  "recall_macro": 0.9275529278063179,
+  "f1_macro": 0.9173365617433414,
+  "samples": 244,
+  "checkpoint": "results\\fdnet_v2_kd_T4_A07\\fdnet_v2_kd_best.pth",
+  "parameters": 3068448
+}

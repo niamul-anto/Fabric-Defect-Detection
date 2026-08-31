@@ -1,0 +1,2 @@
+Model,KD_Temperature,KD_Alpha_CE,Best_Validation_Macro_F1,Best_Epoch,Device,GPU,Precision_Mode,Inference_Batch_Size,Input_Size,Teacher_Used_At_Inference,Total_Parameters,Trainable_Parameters,Parameters_Million,Model_Weight_Size_MB,GFLOPs_Estimate,Latency_Mean_ms_per_image,Latency_STD_ms,Throughput_images_per_sec,Peak_GPU_Memory_MB
+FD-Net V2-KD,4.0,0.7,0.98039,95,cuda,NVIDIA GeForce RTX 4070 Ti SUPER,FP32,1,1x3x224x224,No,3068448,3068448,3.068448,11.8762,0.898927,2.496842,0.087023,400.506,27.4312

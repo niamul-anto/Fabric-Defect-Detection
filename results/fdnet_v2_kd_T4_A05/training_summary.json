@@ -1,0 +1,9 @@
+{
+  "best_validation_macro_f1": 0.9708155183090639,
+  "best_checkpoint": "results\\fdnet_v2_kd_T4_A05\\fdnet_v2_kd_best.pth",
+  "temperature": 4.0,
+  "alpha_ce": 0.5,
+  "seed": 42,
+  "student_parameters": 3068448,
+  "test_evaluated": false
+}

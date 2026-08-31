@@ -1,0 +1,3 @@
+Model,Device,GPU,CUDA,Precision_Mode,Inference_Batch_Size,Input_Size,Total_Parameters,Trainable_Parameters,Parameters_Million,Model_Weight_Size_MB,GFLOPs_Estimate,Latency_Mean_ms_per_image,Latency_STD_ms,Throughput_images_per_sec,Peak_GPU_Memory_MB,Latency_Repeats_ms
+FD-Net V2,cuda,NVIDIA GeForce RTX 4070 Ti SUPER,12.6,FP32,1,1x3x224x224,3068448,3068448,3.068448,11.8732,0.898927,2.508736,0.029963,398.6071,27.4312,2.523612;2.529536;2.537758;2.475377;2.477397
+FD-Net V2-KD,cuda,NVIDIA GeForce RTX 4070 Ti SUPER,12.6,FP32,1,1x3x224x224,3068448,3068448,3.068448,11.8732,0.898927,4.174397,0.288735,239.5556,27.4312,4.283812;4.445049;4.336988;4.096164;3.709971
